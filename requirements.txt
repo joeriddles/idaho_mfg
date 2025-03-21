@@ -1,0 +1,3 @@
+beautifulsoup4<5
+nats-py[nkeys]<3
+requests<3

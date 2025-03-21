@@ -1,0 +1,23 @@
+{
+  "configurations": [
+    {
+      "name": "debug",
+      "type": "debugpy",
+      "request": "launch",
+      "console": "internalConsole",
+      "justMyCode": false,
+      "program": "main.py",
+    },
+    {
+      "name": "debug (--fail)",
+      "type": "debugpy",
+      "request": "launch",
+      "console": "internalConsole",
+      "justMyCode": false,
+      "program": "main.py",
+      "args": [
+        "--fail"
+      ]
+    }
+  ]
+}

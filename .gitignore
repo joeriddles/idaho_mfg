@@ -1,0 +1,8 @@
+.cache
+.venv
+.env
+.pyc
+__pycache__
+/data
+companies.json
+scratch.md

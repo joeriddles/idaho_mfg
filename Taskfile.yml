@@ -1,0 +1,36 @@
+version: '3'
+
+dotenv: ['.env']
+
+tasks:
+  default:
+    cmds:
+      - uv run main.py --fail --nats
+
+  index:build:
+    cmds:
+      - cd web && cat ../data/_everything.json | node build_index.mjs > ./src/assets/index.json
+
+  user:create:
+    desc: Create a Synadia Cloud NATS user with permissions scoped to only get a single KV key
+    cmd: |-
+      http POST "https://cloud.synadia.com/api/core/beta/accounts/$CLOUD_ACCOUNT_ID/nats-users" \
+        "Authorization: Bearer $CLOUD_TOKEN" \
+        'name=IDAHO_MFG_PUBLIC' \
+        "sk_group_id=$CLOUD_SK_GROUP_ID" \
+        'jwt_settings[pub][allow][]=$JS.API.DIRECT.GET.KV_IDAHO_MFG.$KV.IDAHO_MFG.everything' \
+        'jwt_settings[pub][allow][]=$JS.API.STREAM.INFO.KV_IDAHO_MFG' \
+        'jwt_settings[resp][max]:=1' \
+        'jwt_settings[resp][ttl]:=10000' \
+        'jwt_settings[subs]:=-1' \
+        'jwt_settings[data]:=-1' \
+        'jwt_settings[payload]:=-1' | jq --raw-output -c '.id'
+
+  user:creds:
+    desc: Download the NATS user creds
+    vars:
+      USER_ID: ''
+    silent: true
+    cmd: |-
+      http --body POST "https://cloud.synadia.com/api/core/beta/nats-users/$USER_ID/creds" \
+        "Authorization: Bearer $CLOUD_TOKEN"
