@@ -23,6 +23,12 @@ stdin.on('end', function () {
     this.field('products_manufactured', {
       extractor: (doc) => doc.details.products_manufactured,
     })
+    this.field('naics_code_primary', {
+      extractor: (doc) => doc.details["naics_code_(primary)"],
+    })
+    this.field('naics_code_secondary', {
+      extractor: (doc) => doc.details["naics_code_(secondary)"],
+    })
     this.metadataWhitelist = ['position']
 
     documents.forEach(function (doc) {

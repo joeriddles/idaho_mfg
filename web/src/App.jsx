@@ -127,8 +127,10 @@ function useMatch(matches, field, value) {
 
 function Company({ company, matches }) {
   const name = useMatch(matches, 'name', company.name)
-  const description = useMatch(matches, 'description', company.details?.description)
-  const products = useMatch(matches, 'products_manufactured', company.details?.products_manufactured)
+  const description = useMatch(matches, 'description', company.details.description)
+  const products = useMatch(matches, 'products_manufactured', company.details.products_manufactured)
+  const naicsCodePrimary = useMatch(matches, 'naics_code_primary', company.details['naics_code_(primary)']);
+  const naicsCodeSecondary = useMatch(matches, 'naics_code_secondary', company.details['naics_code_(secondary)']);
 
   return (
     <div key={company.detail_url} className="p-1 border rounded w-fit">
@@ -139,6 +141,20 @@ function Company({ company, matches }) {
       >
         {name}
       </a>
+      <div>
+        <table>
+          <tbody>
+            <tr>
+              <th className="text-left">NAICS Code (primary):&nbsp;</th>
+              <td>{naicsCodePrimary}</td>
+            </tr>
+            <tr>
+              <th className="text-left">NAICS Code (secondary):&nbsp;</th>
+              <td>{naicsCodeSecondary}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <div>
         <div className="font-bold">Description</div>
         {description}
