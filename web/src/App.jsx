@@ -50,13 +50,6 @@ function App() {
       Object.entries(metadata).forEach(([term, fields]) => {
         Object.entries(fields).forEach(([field, { position }]) => {
           position.forEach(([start, length]) => {
-            console.log({
-              ref,
-              term,
-              field,
-              pos: [start, length],
-            });
-
             const refMatches = matches.get(ref) ?? [];
             refMatches.push({
               ref,
@@ -69,8 +62,6 @@ function App() {
         });
       });
     });
-
-    console.log([...matches.entries()]);
 
     return matches;
   }, [results]);
