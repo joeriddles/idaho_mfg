@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/idaho_mfg',
   plugins: [react(), tailwindcss()],
   build: {
     chunkSizeWarningLimit: 2_000, // 2 MB, index is ~1.5 MB
