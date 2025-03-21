@@ -10,6 +10,15 @@ tasks:
   index:build:
     cmds:
       - cd web && cat ../data/_everything.json | node build_index.mjs > ./src/assets/index.json
+  
+  web:build:
+    desc: Build the web project
+    cmd: cd web && npm run build
+
+  web:deploy:
+    desc: Deploy the web project
+    deps: [web:build]
+    cmd: cd web && npm run gh-pages
 
   user:create:
     desc: Create a Synadia Cloud NATS user with permissions scoped to only get a single KV key
